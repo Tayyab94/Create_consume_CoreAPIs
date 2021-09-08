@@ -1,0 +1,74 @@
+﻿
+@model IEnumerable<API_Create_Consume.Models.Reservation>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+<body>
+
+
+    <h2>All Reservations</h2>
+    <a asp-action="AddReservation" class="btn btn-sm btn-primary">Add Reservation</a>
+    <a asp-action="GetReservation"  class="btn btn-sm btn-secondary">Get Reservation</a>
+
+    <table class="table table-sm table-striped table-bordered m-2">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Start Location</th>
+                <th>End Location</th>
+                <th>Update</th>
+                <th>Delete</th>
+                <th>Detail</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr>
+                    <td>@r.Id</td>
+                    <td>@r.Name</td>
+                    <td>@r.StartLocation</td>
+                    <td>@r.EndLocation</td>
+                    <td>
+                        <a asp-action="UpdateReservation" asp-route-id="@r.Id">
+                            <img src="/icon/edit.png" />
+                        </a>
+                    </td>
+                    <td>
+                        <form asp-action="DeleteReservation" method="post">
+                            <input type="hidden" value="@r.Id" name="ReservationId" />
+                            <input type="image" src="/icon/close.png" />
+                        </form>
+                    </td>
+
+                    <th>
+
+                        <a href="@Url.Action("GetReservation","Home",new  { id= r.Id})">Detail</a>
+                    </th>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+    -->
+</body>
+</html>
